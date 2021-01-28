@@ -122,6 +122,7 @@ object GsonEventTest {
         testText = jsonObject.get("testText").getAsString,
         recordedEvents = context
           .deserialize(jsonObject.get("recordedEvents"), new TypeToken[IndexedSeq[RecordableEvent]]() {}.getType),
+        analysis = IndexedSeq[String](),
         throwable = Option(context.deserialize(jsonObject.get("throwable"), new TypeToken[Throwable]() {}.getType)),
         duration = Option(jsonObject.get("duration")).map(_.getAsLong),
         formatter = Option(context.deserialize(jsonObject.get("formatter"), new TypeToken[Formatter]() {}.getType)),

@@ -5,16 +5,19 @@ import java.time.Instant
 import java.util
 
 import fr.fpe.scalatest.jgiven.json.GsonEventSupport
-import org.scalatest.Matchers._
+import org.scalatest._
+import matchers.should.Matchers._
 import org.scalatest.events._
-import org.scalatest.{ConfigMap, FlatSpec}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.ConfigMap
 import sbt.testing.Event
+import org.scalatest.flatspec.AnyFlatSpec
 
 import scala.collection.JavaConverters._
 import scala.collection.immutable.IndexedSeq
 import scala.io.Source
 
-class JsonReporterSpec extends FlatSpec {
+class JsonReporterSpec extends AnyFlatSpec {
 
   "JsonReporter" should "serialize and deserialize AlertProvided" in {
     implicit val reporter: JsonReporter = new JsonReporter()
@@ -511,6 +514,7 @@ class JsonReporterSpec extends FlatSpec {
           timeStamp = Instant.parse("2019-06-25T21:55:00Z").toEpochMilli
         )
       ),
+      analysis = IndexedSeq[String](),
       throwable = None,
       duration = Some(21L),
       formatter = None,
@@ -691,8 +695,9 @@ class JsonReporterSpec extends FlatSpec {
   private def then_deserialized_events(implicit reporter: JsonReporter): List[Event] = {
     reporter.dispose()
     val source = Source.fromFile(Paths.get("target", "scalatest-events.json").toFile)
+    val json = source.getLines.mkString
     val events: List[Event] = GsonEventSupport.gson
-      .fromJson(source.getLines.mkString, GsonEventSupport.collectionOfEventsType)
+      .fromJson(json, GsonEventSupport.collectionOfEventsType)
       .asInstanceOf[util.Collection[Event]]
       .asScala
       .toList

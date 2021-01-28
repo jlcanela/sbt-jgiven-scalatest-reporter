@@ -16,6 +16,9 @@ lazy val root = (project in file("."))
     libraryDependencies += `jgiven-core`,
     libraryDependencies += `jgiven-html5-report`,
     libraryDependencies += scalatest,
+    libraryDependencies += scalatestflatspec,
+    libraryDependencies += scalatestwordspec,
+    libraryDependencies += scalatestfeaturespec,
     libraryDependencies += `slf4j-api`,
   )
 

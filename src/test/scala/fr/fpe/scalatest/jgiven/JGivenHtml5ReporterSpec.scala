@@ -6,11 +6,13 @@ import com.tngtech.jgiven.report.model.ExecutionStatus.SUCCESS
 import fr.fpe.scalatest.jgiven.JGivenHtml5ReporterFixture._
 import org.scalatest.OptionValues._
 import org.scalatest._
+import matchers.should._
+import org.scalatest.featurespec.AnyFeatureSpec
 
 import scala.collection.JavaConverters._
 import scala.concurrent.duration._
 
-class JGivenHtml5ReporterSpec extends FeatureSpec with GivenWhenThen with Matchers with BeforeAndAfter {
+class JGivenHtml5ReporterSpec extends AnyFeatureSpec with GivenWhenThen with Matchers with BeforeAndAfter {
 
   info("As a test writer")
   info("I want my scalatest FeatureSpec being viewable into a browser")

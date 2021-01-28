@@ -10,8 +10,9 @@ import com.tngtech.jgiven.report.model.ExecutionStatus.{FAILED, SUCCESS}
 import com.tngtech.jgiven.report.model.StepStatus.{PASSED, FAILED => STEP_FAILED}
 import com.tngtech.jgiven.report.model._
 import org.scalatest.events._
-import org.scalatest.{FeatureSpecLike, ResourcefulReporter}
 
+import org.scalatest.ResourcefulReporter
+import org.scalatest.featurespec.AnyFeatureSpecLike
 import scala.collection.JavaConverters._
 import scala.collection.Map
 import scala.concurrent.duration._
@@ -84,6 +85,7 @@ class JGivenHtml5Reporter extends ResourcefulReporter {
             testName,
             testText,
             recordedEvents,
+            analysis,
             maybeThrowable,
             maybeDuration,
             _,
@@ -97,7 +99,7 @@ class JGivenHtml5Reporter extends ResourcefulReporter {
           val scenario = new ScenarioModel()
           scenario.setClassName(suiteClassName.getOrElse(suiteId))
           scenario.setDescription(currentSpecInstance match {
-            case Some(currentSpec) if currentSpec.isInstanceOf[FeatureSpecLike] =>
+            case Some(currentSpec) if currentSpec.isInstanceOf[AnyFeatureSpecLike] =>
               testText.replaceFirst("^Scenario: ", "")
             case _ => testName
           })
@@ -155,7 +157,7 @@ class JGivenHtml5Reporter extends ResourcefulReporter {
           val scenario = new ScenarioModel()
           scenario.setClassName(suiteClassName.getOrElse(suiteId))
           scenario.setDescription(currentSpecInstance match {
-            case Some(currentSpec) if currentSpec.isInstanceOf[FeatureSpecLike] =>
+            case Some(currentSpec) if currentSpec.isInstanceOf[AnyFeatureSpecLike] =>
               testText.replaceFirst("^Scenario: ", "")
             case _ => testName
           })

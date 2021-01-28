@@ -1,9 +1,10 @@
 package fr.fpe.scalatest.jgiven
 
 import org.scalatest._
+import featurespec.AnyFeatureSpec
 
 @TVSetFeature
-class TVSetSpec extends FeatureSpec with GivenWhenThen {
+class TVSetSpec extends AnyFeatureSpec with GivenWhenThen {
 
   info("As a TV set owner")
   info("I want to be able to turn the TV on and off")
